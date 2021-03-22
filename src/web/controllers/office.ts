@@ -58,8 +58,6 @@ export default class OfficeController {
       { $project: { 'history.updatedAt': 0 } },
     ])
 
-    console.log(offices)
-
     await OfficeModel.populate(offices, { path: 'shop' })
 
     return offices.map(officeOutput)
