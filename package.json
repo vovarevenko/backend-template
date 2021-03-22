@@ -2,6 +2,7 @@
   "name": "backend-template",
   "version": "1.0.0",
   "author": "Vova Revenko <vova@revenko.org>",
+  "description": "Backend starter template for quick MVP creation",
   "repository": {
     "type": "git",
     "url": "https://github.com/vovarevenko/backend-template.git"
