@@ -6,7 +6,7 @@ import { isDev, eventListeners, mongo as mongoConfig } from './config'
 import { readdirSync } from 'fs'
 
 import * as mongoose from 'mongoose'
-import { ShopModel } from './app/models'
+import { CityModel } from './app/models'
 import { FakeDataService } from './app/services'
 
 bootstrap()
@@ -47,7 +47,7 @@ async function dbConnect() {
 }
 
 async function createFakeData() {
-  if (!(await ShopModel.estimatedDocumentCount())) {
+  if (!(await CityModel.estimatedDocumentCount())) {
     await FakeDataService.createFakeData()
   }
 }
