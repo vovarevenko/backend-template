@@ -112,7 +112,7 @@ export default class PaymentController {
 
 }
 
-async function getPaymentByIdOrDie(id: string): Promise<PaymentDoc> {
+async function getPaymentByIdOrDie(id: string) {
   const payment = getPaymentQuery()
     .where('_id', mongoose.Types.ObjectId(id))
     .findOne()

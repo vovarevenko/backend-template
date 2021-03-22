@@ -41,7 +41,7 @@ export async function create(data: PaymentCreateData) {
   return payment
 }
 
-export async function cancel(payment: PaymentDoc): Promise<boolean> {
+export async function cancel(payment: PaymentDoc) {
   if (payment.canceledAt) return false
 
   payment.canceledAt = new Date()

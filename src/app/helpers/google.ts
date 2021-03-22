@@ -12,14 +12,11 @@ interface TokenInfo {
   email: string
 }
 
-export async function googleGetTokenInfo(token: string): Promise<TokenInfo> {
+export async function googleGetTokenInfo(token: string) {
+  // TODO: error handling
   const res: TokenInfoResponse = await axios.get(
     `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`
   )
 
-  if (!res.data || !res.data.name || !res.data.email) {
-    throw new Error()
-  }
-
-  return res.data
+  return res.data as TokenInfo
 }

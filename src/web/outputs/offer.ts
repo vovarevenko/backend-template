@@ -5,7 +5,7 @@ import { officeOutput } from './office'
 import { productOutput } from './product'
 import { shopOutput } from './shop'
 
-export function offerOutput(offer: OfferDoc): Record<string, unknown> {
+export function offerOutput(offer: OfferDoc) {
   return {
     id: offer._id.toString(),
     shop: isDocument(offer.shop)

@@ -6,10 +6,10 @@ interface JwtPayload {
   iat?: number
 }
 
-export function jwtSign(payload: JwtPayload): string {
+export function jwtSign(payload: JwtPayload) {
   return jwt.sign(payload, cfg.secret)
 }
 
-export function jwtVerify(token: string): JwtPayload {
+export function jwtVerify(token: string) {
   return jwt.verify(token, cfg.secret) as JwtPayload
 }

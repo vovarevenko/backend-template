@@ -1,4 +1,4 @@
-export function codeCreate(length = 4): string {
+export function codeCreate(length = 4) {
   let code = ''
 
   for (let i = 0; i < length; i++) {

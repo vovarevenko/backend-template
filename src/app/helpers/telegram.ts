@@ -13,7 +13,7 @@ export interface TelegramLoginData {
   hash: string
 }
 
-export function telegramCheckAuth(data: TelegramLoginData): boolean {
+export function telegramCheckAuth(data: TelegramLoginData) {
   const { hash, ...fields } = data
   const check = hex.stringify(
     hmacSha256(
