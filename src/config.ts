@@ -1,6 +1,9 @@
-import { parse } from 'dotenv-conf'
+import * as dotenv from 'dotenv'
 
-const data = parse(`${__dirname}/../.env`)
+// If runs without Docker
+dotenv.config({ path: `${__dirname}/../.env` })
+
+const data = process.env
 
 export const env = data.ENV
 export const isDev = env === 'development'
@@ -20,7 +23,9 @@ export const jwt = {
 }
 
 export const mongo = {
-  uris: data.MONGO_URIS || 'mongodb://localhost:27017',
+  uris: data.MONGO_HOST && data.MONGO_PORT
+    ? `mongodb://${data.MONGO_HOST}:${data.MONGO_PORT}`
+    : 'mongodb://localhost:27017',
   dbName: data.MONGO_DB_NAME || 'test',
   username: data.MONGO_USERNAME,
   password: data.MONGO_PASSWORD,

@@ -21,7 +21,7 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "crypto-js": "^4.0.0",
-    "dotenv-conf": "^1.0.3",
+    "dotenv": "^8.2.0",
     "generate-password": "^1.6.0",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
