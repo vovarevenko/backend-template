@@ -1,4 +1,3 @@
-export * as AuthService from './auth'
 export * as FakeDataService from './fake-data'
 export * as OAuthService from './oauth'
 export * as PaymentService from './payment'

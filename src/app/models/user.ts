@@ -6,10 +6,6 @@ import {
 } from '@typegoose/typegoose'
 import { CityField } from './fields'
 
-@index({ login: 1 }, {
-  unique: true,
-  partialFilterExpression: { login: { $exists: true } },
-})
 @index({ googleId: 1 }, {
   unique: true,
   partialFilterExpression: { googleId: { $exists: true } },
@@ -28,12 +24,6 @@ export class User {
 
   @prop()
   name?: string
-
-  @prop()
-  login?: string
-
-  @prop()
-  password?: string
 
   @prop()
   googleId?: string

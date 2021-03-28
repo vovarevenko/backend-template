@@ -9,8 +9,8 @@ import {
   Put,
 } from 'koa-ts-controllers'
 import { CityModel, UserDoc } from '../../app/models'
-import { AuthService, UserService } from '../../app/services'
-import { ChangeCityInput, LoginInput } from '../inputs/auth'
+import { UserService } from '../../app/services'
+import { ChangeCityInput } from '../inputs/auth'
 import { auth } from '../middlewares/auth'
 import { authOutput } from '../outputs/auth'
 import { cityOutput } from '../outputs/city'
@@ -23,12 +23,6 @@ export default class AuthController {
   @Flow([auth])
   async user(@CurrentUser() user: UserDoc) {
     return userOutput(user)
-  }
-
-  @Post('/login')
-  async login(@Body({ required: true }) { login, password }: LoginInput) {
-    const user = await AuthService.loginWithPassword(login, password)
-    return authOutput(user)
   }
 
   @Put('/change-city')

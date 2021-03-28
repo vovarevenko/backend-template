@@ -6,7 +6,6 @@ export function userOutput(user: UserDoc) {
     id: user._id.toString(),
     name: user.name,
     city: cityOutput(user.city),
-    login: user.login,
     googleId: user.googleId,
     telegramId: user.telegramId,
     createdAt: user.createdAt,
