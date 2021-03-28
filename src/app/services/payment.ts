@@ -1,7 +1,4 @@
-import {
-  PaymentCanceled,
-  PaymentCreated,
-} from '../events'
+import { PaymentCanceled, PaymentCreated } from '../events'
 import { codeCreate } from '../helpers'
 import {
   OfferDoc,
@@ -24,11 +21,22 @@ interface PaymentCreateData {
 }
 
 export async function create(data: PaymentCreateData) {
-  const { user, office, office: { shop, city } } = data
+  const {
+    user,
+    office,
+    office: { shop, city },
+  } = data
   const items = data.items.map(prettifyPaymentItem)
   const code = codeCreate()
 
-  const payment = await PaymentModel.create({ user, shop, city, office, items, code })
+  const payment = await PaymentModel.create({
+    user,
+    shop,
+    city,
+    office,
+    items,
+    code,
+  })
 
   data.items.forEach(async ({ subscription, qty }) => {
     await SubscriptionService.changeBalance(subscription, -qty)
@@ -54,7 +62,7 @@ export async function cancel(payment: PaymentDoc) {
   payment.items.forEach(async ({ subscription, qty }) => {
     await SubscriptionService.changeBalance(
       subscription as SubscriptionDoc,
-      qty,
+      qty
     )
   })
 
@@ -63,9 +71,10 @@ export async function cancel(payment: PaymentDoc) {
   return true
 }
 
-function prettifyPaymentItem(
-  item: { subscription: SubscriptionDoc, qty: number },
-): {
+function prettifyPaymentItem(item: {
+  subscription: SubscriptionDoc
+  qty: number
+}): {
   product: ProductDoc
   offer: OfferDoc
   subscription: SubscriptionDoc

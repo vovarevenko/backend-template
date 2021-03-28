@@ -1,8 +1,4 @@
-import {
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator'
+import { IsOptional, IsString, ValidateNested } from 'class-validator'
 
 class PurchaseCreateItemsInput {
   @IsString()

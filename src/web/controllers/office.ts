@@ -1,31 +1,23 @@
 import * as mongoose from 'mongoose'
 import * as createHttpError from 'http-errors'
-import {
-  Controller,
-  Get,
-  Params,
-  Query,
-} from 'koa-ts-controllers'
+import { Controller, Get, Params, Query } from 'koa-ts-controllers'
 import { OfficeDoc, OfficeModel, UserOfficeModel } from '../../app/models'
 import { officeOutput } from '../outputs/office'
 
 @Controller('/offices')
 export default class OfficeController {
-
   @Get('/')
   async list(
     @Query('shop') shop?: string,
     @Query('city') city?: string,
-    @Query('user') user?: string, // for sort by usage
+    @Query('user') user?: string // for sort by usage
   ) {
     const filters = {}
     if (shop) filters['shop'] = mongoose.Types.ObjectId(shop)
     if (city) filters['city._id'] = mongoose.Types.ObjectId(city)
 
     if (!user) {
-      const query = OfficeModel.find(filters)
-        .sort({ _id: 1 })
-        .populate('shop')
+      const query = OfficeModel.find(filters).sort({ _id: 1 }).populate('shop')
 
       return (await query.exec()).map(officeOutput)
     }
@@ -47,9 +39,9 @@ export default class OfficeController {
                 },
               },
             },
-            { $project: { _id: 0, updatedAt: 1 } }
+            { $project: { _id: 0, updatedAt: 1 } },
           ],
-          as: 'history'
+          as: 'history',
         },
       },
       { $unwind: { path: '$history', preserveNullAndEmptyArrays: true } },
@@ -65,13 +57,10 @@ export default class OfficeController {
 
   @Get('/:id')
   async item(@Params('id') id: string) {
-    const office = await OfficeModel
-      .findById(id)
-      .populate('shop')
+    const office = await OfficeModel.findById(id).populate('shop')
 
     if (!office) throw createHttpError(404)
 
     return officeOutput(office)
   }
-
 }

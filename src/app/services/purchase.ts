@@ -1,7 +1,4 @@
-import {
-  SubscriptionService,
-  UserOfficeService,
-} from '.'
+import { SubscriptionService, UserOfficeService } from '.'
 import {
   OfferDoc,
   OfficeDoc,
@@ -43,14 +40,12 @@ export async function create(data: PurchaseCreateData) {
   return purchase
 }
 
-function prettifyPurchaseItem(
-  item: {
-    offer: OfferDoc,
-    subscription: SubscriptionDoc
-    office?: OfficeDoc,
-    qty: number,
-  }
-): {
+function prettifyPurchaseItem(item: {
+  offer: OfferDoc
+  subscription: SubscriptionDoc
+  office?: OfficeDoc
+  qty: number
+}): {
   shop: ShopDoc
   product: ProductDoc
   offer: OfferDoc

@@ -19,10 +19,8 @@ export function offerOutput(offer: OfferDoc) {
     qty: offer.qty,
     validity: offer.validity,
     cities: offer.cities.map(cityOutput),
-    offices: offer.offices.map(
-      item => isDocument(item)
-        ? officeOutput(item)
-        : item['_id'].toString(),
+    offices: offer.offices.map(item =>
+      isDocument(item) ? officeOutput(item) : item['_id'].toString()
     ),
   }
 }

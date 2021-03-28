@@ -13,7 +13,6 @@ import { subscriptionOutput } from '../outputs/subscription'
 
 @Controller('/subscriptions')
 export default class SubscriptionController {
-
   @Get('/')
   @Flow([auth])
   async list(
@@ -21,18 +20,14 @@ export default class SubscriptionController {
     @Query('user') user: string,
     @Query('shop') shop?: string,
     @Query('product') product?: string,
-    @Query('offer') offer?: string,
+    @Query('offer') offer?: string
   ) {
-    const query = SubscriptionModel
-      .find()
+    const query = SubscriptionModel.find()
       .sort({ updatedAt: -1 })
       .populate('shop')
       .populate({
         path: 'offer',
-        populate: [
-          { path: 'product' },
-          { path: 'offices' },
-        ],
+        populate: [{ path: 'product' }, { path: 'offices' }],
       })
 
     if (!user) throw createHttpError(403)
@@ -51,20 +46,15 @@ export default class SubscriptionController {
 
   @Get('/:id')
   async item(@Params('id') id: string) {
-    const subscription = await SubscriptionModel
-      .findById(id)
+    const subscription = await SubscriptionModel.findById(id)
       .populate('shop')
       .populate({
         path: 'offer',
-        populate: [
-          { path: 'product' },
-          { path: 'offices' },
-        ],
+        populate: [{ path: 'product' }, { path: 'offices' }],
       })
 
     if (!subscription) throw createHttpError(404)
 
     return subscriptionOutput(subscription)
   }
-
 }

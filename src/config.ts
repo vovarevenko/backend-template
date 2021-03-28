@@ -12,7 +12,7 @@ export const eventListeners = [
 ]
 
 export const http = {
-  port: Number(data.HTTP_PORT) ?? 1337
+  port: Number(data.HTTP_PORT) ?? 1337,
 }
 
 export const jwt = {
@@ -20,9 +20,10 @@ export const jwt = {
 }
 
 export const mongo = {
-  uris: data.MONGO_HOST && data.MONGO_PORT
-    ? `mongodb://${data.MONGO_HOST}:${data.MONGO_PORT}`
-    : 'mongodb://localhost:27017',
+  uris:
+    data.MONGO_HOST && data.MONGO_PORT
+      ? `mongodb://${data.MONGO_HOST}:${data.MONGO_PORT}`
+      : 'mongodb://localhost:27017',
   dbName: data.MONGO_DB_NAME ?? 'test',
   username: data.MONGO_USERNAME,
   password: data.MONGO_PASSWORD,

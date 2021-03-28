@@ -3,17 +3,13 @@ import {
   telegramCheckAuth,
   TelegramLoginData,
 } from '../helpers'
-import {
-  CityDoc,
-  UserDoc,
-  UserModel,
-} from '../models'
+import { CityDoc, UserDoc, UserModel } from '../models'
 import { UserService } from '.'
 
 export async function loginWithGoogle(
   token: string,
   city: CityDoc,
-  user?: UserDoc,
+  user?: UserDoc
 ) {
   const { name, email: googleId } = await googleGetTokenInfo(token)
 
@@ -46,7 +42,7 @@ export async function loginWithGoogle(
 export async function loginWithTelegram(
   data: TelegramLoginData,
   city: CityDoc,
-  user?: UserDoc,
+  user?: UserDoc
 ) {
   if (!telegramCheckAuth(data)) {
     throw new Error()

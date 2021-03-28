@@ -41,7 +41,10 @@ export async function create(data: SubscriptionCreateData) {
   return subscription
 }
 
-export async function changeBalance(subscription: SubscriptionDoc, change: number) {
+export async function changeBalance(
+  subscription: SubscriptionDoc,
+  change: number
+) {
   if (subscription.balance + change >= 0) {
     subscription.balance += change
     await subscription.save()

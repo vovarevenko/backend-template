@@ -1,16 +1,10 @@
-import {
-  DocumentType,
-  getModelForClass,
-  prop,
-  Ref,
-} from '@typegoose/typegoose'
+import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { CityField, MoneyField } from './fields'
 import { Office } from './office'
 import { Product } from './product'
 import { Shop } from './shop'
 
 export class Offer {
-
   @prop({ required: true, index: true, ref: Shop })
   shop: Ref<Shop>
 
@@ -40,7 +34,6 @@ export class Offer {
 
   @prop()
   updatedAt?: Date
-
 }
 
 export const OfferModel = getModelForClass(Offer, {

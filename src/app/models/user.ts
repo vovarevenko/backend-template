@@ -6,16 +6,21 @@ import {
 } from '@typegoose/typegoose'
 import { CityField } from './fields'
 
-@index({ googleId: 1 }, {
-  unique: true,
-  partialFilterExpression: { googleId: { $exists: true } },
-})
-@index({ telegramId: 1 }, {
-  unique: true,
-  partialFilterExpression: { telegramId: { $exists: true } },
-})
+@index(
+  { googleId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { googleId: { $exists: true } },
+  }
+)
+@index(
+  { telegramId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { telegramId: { $exists: true } },
+  }
+)
 export class User {
-
   @prop({ required: true, unique: true })
   token: string
 
@@ -36,7 +41,6 @@ export class User {
 
   @prop()
   updatedAt?: Date
-
 }
 
 export const UserModel = getModelForClass(User, {

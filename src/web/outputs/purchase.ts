@@ -27,9 +27,7 @@ export function purchaseOutput(purchase: PurchaseDoc) {
       subscription: isDocument(item.subscription)
         ? subscriptionOutput(item.subscription)
         : item.subscription['_id'].toString(),
-      city: item.city
-        ? cityOutput(item.city)
-        : undefined,
+      city: item.city ? cityOutput(item.city) : undefined,
       office: item.office
         ? isDocument(item.office)
           ? officeOutput(item.office)

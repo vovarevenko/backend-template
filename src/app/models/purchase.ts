@@ -15,7 +15,6 @@ import { User } from './user'
 
 @modelOptions({ schemaOptions: { _id: false } })
 export class PurchaseItem {
-
   @prop({ required: true, index: true, ref: Shop })
   shop: Ref<Shop>
 
@@ -36,11 +35,9 @@ export class PurchaseItem {
 
   @prop({ required: true, min: 1 })
   qty: number
-
 }
 
 export class Purchase {
-
   @prop({ required: true, index: true, ref: User })
   user: Ref<User>
 
@@ -55,7 +52,6 @@ export class Purchase {
 
   @prop()
   canceledAt?: Date
-
 }
 
 export const PurchaseModel = getModelForClass(Purchase, {

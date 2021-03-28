@@ -1,15 +1,9 @@
-import {
-  DocumentType,
-  getModelForClass,
-  prop,
-  Ref,
-} from '@typegoose/typegoose'
+import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { CityField } from './fields'
 import { Shop } from './shop'
 import { User } from './user'
 
 export class Office {
-
   @prop({ required: true, index: true, ref: Shop })
   shop: Ref<Shop>
 
@@ -27,7 +21,6 @@ export class Office {
 
   @prop()
   updatedAt?: Date
-
 }
 
 export const OfficeModel = getModelForClass(Office, {

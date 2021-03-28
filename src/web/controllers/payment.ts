@@ -25,12 +25,11 @@ import { paymentOutput } from '../outputs/payment'
 
 @Controller('/payments')
 export default class PaymentController {
-
   @Get('/')
   async list(
     @Query('user') user?: string,
     @Query('shop') shop?: string,
-    @Query('office') office?: string,
+    @Query('office') office?: string
   ) {
     const query = getPaymentQuery().sort({ createdAt: -1 })
 
@@ -45,7 +44,7 @@ export default class PaymentController {
   @Flow([auth])
   async create(
     @Body({ required: true }) data: PaymentCreateInput,
-    @CurrentUser() user: UserDoc,
+    @CurrentUser() user: UserDoc
   ) {
     const office = await OfficeModel.findById(data.office).populate('shop')
     if (!office) createHttpError(404)
@@ -53,19 +52,23 @@ export default class PaymentController {
     const createData = { user, office, items: [] }
 
     const subscriptionIds = data.items.map(el => el.subscription)
-    const subscriptions = await SubscriptionModel
-      .find({ _id: { $in: subscriptionIds.map(mongoose.Types.ObjectId) } })
+    const subscriptions = await SubscriptionModel.find({
+      _id: { $in: subscriptionIds.map(mongoose.Types.ObjectId) },
+    })
       .populate('user')
       .populate('shop')
       .populate('product')
       .populate('offer')
 
-    if (subscriptions.length !== subscriptionIds.length) throw createHttpError(404)
+    if (subscriptions.length !== subscriptionIds.length)
+      throw createHttpError(404)
 
     const now = new Date()
 
     for (const item of data.items) {
-      const subscription = subscriptions.find(el => el['_id'].toString() === item.subscription)
+      const subscription = subscriptions.find(
+        el => el['_id'].toString() === item.subscription
+      )
 
       if (
         subscription.user['_id'].toString() !== user['_id'].toString() ||
@@ -76,7 +79,9 @@ export default class PaymentController {
       }
 
       createData.items.push({
-        subscription: subscriptions.find(el => el['_id'].toString() === item.subscription),
+        subscription: subscriptions.find(
+          el => el['_id'].toString() === item.subscription
+        ),
         qty: 1,
       })
     }
@@ -92,10 +97,7 @@ export default class PaymentController {
   }
 
   @Post('/:id')
-  async cancel(
-    @Params('id') id: string,
-    @CurrentUser() user: UserDoc,
-  ) {
+  async cancel(@Params('id') id: string, @CurrentUser() user: UserDoc) {
     const payment = await getPaymentByIdOrDie(id)
 
     if (
@@ -109,7 +111,6 @@ export default class PaymentController {
 
     return paymentOutput(payment)
   }
-
 }
 
 async function getPaymentByIdOrDie(id: string) {
@@ -124,8 +125,7 @@ async function getPaymentByIdOrDie(id: string) {
 }
 
 function getPaymentQuery() {
-  return PaymentModel
-    .find()
+  return PaymentModel.find()
     .populate('user')
     .populate('shop')
     .populate('office')

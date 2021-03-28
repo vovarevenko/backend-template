@@ -4,7 +4,6 @@ import { cityOutput } from '../outputs/city'
 
 @Controller('/cities')
 export default class CityController {
-
   @Get('/')
   async list() {
     const query = CityModel.find().sort({ name: 1 })
@@ -16,5 +15,4 @@ export default class CityController {
     const city = await CityModel.findOne().sort({ _id: 1 })
     return cityOutput(city)
   }
-
 }

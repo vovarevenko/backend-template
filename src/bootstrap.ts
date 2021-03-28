@@ -12,7 +12,6 @@ import { FakeDataService } from './app/services'
 bootstrap()
 
 async function bootstrap() {
-
   /**
    * Connect to database
    */
@@ -29,7 +28,6 @@ async function bootstrap() {
    * Require event listeners
    */
   requireListeners()
-
 }
 
 async function dbConnect() {

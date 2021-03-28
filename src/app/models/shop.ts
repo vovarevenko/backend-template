@@ -1,14 +1,8 @@
-import {
-  DocumentType,
-  getModelForClass,
-  prop,
-  Ref,
-} from '@typegoose/typegoose'
+import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { CityField } from './fields'
 import { User } from './user'
 
 export class Shop {
-
   @prop({ required: true, index: true, ref: User })
   user: Ref<User>
 
@@ -26,7 +20,6 @@ export class Shop {
 
   @prop()
   updatedAt?: Date
-
 }
 
 export const ShopModel = getModelForClass(Shop, {

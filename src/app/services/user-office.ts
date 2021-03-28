@@ -8,7 +8,7 @@ interface UpdateUserOfficeData {
 export async function update({ user, office }: UpdateUserOfficeData) {
   await UserOfficeModel.findOneAndUpdate(
     { user, office },
-    { updatedAt: new Date },
-    { upsert: true },
+    { updatedAt: new Date() },
+    { upsert: true }
   )
 }

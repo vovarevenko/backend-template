@@ -18,7 +18,6 @@ import { userOutput } from '../outputs/user'
 
 @Controller('/auth')
 export default class AuthController {
-
   @Get('/user')
   @Flow([auth])
   async user(@CurrentUser() user: UserDoc) {
@@ -29,7 +28,7 @@ export default class AuthController {
   @Flow([auth])
   async changeCity(
     @Body({ required: true }) data: ChangeCityInput,
-    @CurrentUser() user: UserDoc,
+    @CurrentUser() user: UserDoc
   ) {
     const city = await CityModel.findById(data.city)
     if (!city) throw createHttpError(404)
@@ -38,5 +37,4 @@ export default class AuthController {
 
     return cityOutput(city)
   }
-
 }
