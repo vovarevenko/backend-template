@@ -1,9 +1,9 @@
 FROM node:14
 
 RUN mkdir -p /usr/src/app
+
 WORKDIR /usr/src/app
 
-RUN npm install -g yarn
-RUN yarn install
+COPY package.json .
 
-CMD ["yarn", "dev"]
+RUN yarn install
