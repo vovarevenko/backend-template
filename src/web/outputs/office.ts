@@ -11,6 +11,6 @@ export function officeOutput(office: OfficeDoc) {
       : office.shop['_id'].toString(),
     city: cityOutput(office.city),
     address: office.address,
-    lastTouch: office['lastTouch'] || undefined
+    lastTouch: office['lastTouch'],
   }
 }
