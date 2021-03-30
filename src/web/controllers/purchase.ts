@@ -40,9 +40,9 @@ export default class PurchaseController {
 
     for (const item of data.items) {
       createData.items.push({
-        offer: offers.find(el => el['_id'].toString() === item.offer),
+        offer: offers.find(el => el._id.toString() === item.offer),
         office: item.office
-          ? offices.find(el => el['_id'].toString() === item.office)
+          ? offices.find(el => el._id.toString() === item.office)
           : undefined,
         qty: 1,
       })

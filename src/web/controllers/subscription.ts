@@ -31,7 +31,7 @@ export default class SubscriptionController {
       })
 
     if (!user) throw createHttpError(403)
-    if (currentUser && user !== currentUser['_id'].toString()) {
+    if (currentUser && user !== currentUser._id.toString()) {
       throw createHttpError(403)
     }
 

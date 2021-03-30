@@ -75,13 +75,13 @@ export default class PaymentController {
 
     for (const item of data.items) {
       const subscription = subscriptions.find(
-        el => el['_id'].toString() === item.subscription,
+        el => el._id.toString() === item.subscription,
       )
 
       if (
         !isDocument(subscription) ||
         !isDocument(subscription?.user) ||
-        subscription.user['_id'].toString() !== user['_id'].toString() ||
+        subscription.user._id.toString() !== user._id.toString() ||
         // subscription.balance < item.qty ||
         subscription.expiresAt < now
       ) {
@@ -90,7 +90,7 @@ export default class PaymentController {
 
       createData.items.push({
         subscription: subscriptions.find(
-          el => el['_id'].toString() === item.subscription,
+          el => el._id.toString() === item.subscription,
         ) as SubscriptionDoc,
         qty: 1,
       })
@@ -113,7 +113,7 @@ export default class PaymentController {
     if (
       !isDocument(payment.shop) ||
       !isDocument(payment.shop.user) ||
-      payment.shop.user['_id'].toString() !== user['_id'].toString()
+      payment.shop.user._id.toString() !== user._id.toString()
     ) {
       throw createHttpError(403)
     }
