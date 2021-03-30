@@ -1,4 +1,4 @@
-import * as createHttpError from 'http-errors'
+import createHttpError from 'http-errors'
 import {
   Controller,
   CurrentUser,
@@ -20,7 +20,7 @@ export default class SubscriptionController {
     @Query('user') user: string,
     @Query('shop') shop?: string,
     @Query('product') product?: string,
-    @Query('offer') offer?: string
+    @Query('offer') offer?: string,
   ) {
     const query = SubscriptionModel.find()
       .sort({ updatedAt: -1 })
@@ -35,11 +35,11 @@ export default class SubscriptionController {
       throw createHttpError(403)
     }
 
-    query.where({ user })
+    void query.where({ user })
 
-    if (shop) query.where({ shop })
-    if (product) query.where({ product })
-    if (offer) query.where({ offer })
+    if (shop) void query.where({ shop })
+    if (product) void query.where({ product })
+    if (offer) void query.where({ offer })
 
     return (await query.exec()).map(subscriptionOutput)
   }

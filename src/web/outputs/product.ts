@@ -7,7 +7,7 @@ export function productOutput(product: ProductDoc) {
     id: product._id.toString(),
     shop: isDocument(product.shop)
       ? shopOutput(product.shop)
-      : product.shop['_id'].toString(),
+      : product.shop?.toString(),
     name: product.name,
     weight: product.weight,
     photo: product.photo,

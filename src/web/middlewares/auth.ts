@@ -1,4 +1,4 @@
-import * as createHttpError from 'http-errors'
+import createHttpError from 'http-errors'
 import { Context, Next } from 'koa'
 
 export function auth(ctx: Context, next: Next) {

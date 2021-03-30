@@ -24,8 +24,10 @@ export async function create(data: PaymentCreateData) {
   const {
     user,
     office,
-    office: { shop, city },
+    // office: { shop, city },
   } = data
+  const shop = office.shop
+  const city = office.city
   const items = data.items.map(prettifyPaymentItem)
   const code = codeCreate()
 
@@ -38,9 +40,9 @@ export async function create(data: PaymentCreateData) {
     code,
   })
 
-  data.items.forEach(async ({ subscription, qty }) => {
+  for (const { subscription, qty } of data.items) {
     await SubscriptionService.changeBalance(subscription, -qty)
-  })
+  }
 
   await UserOfficeService.update({ user, office })
 
@@ -56,15 +58,15 @@ export async function cancel(payment: PaymentDoc) {
   await payment.save()
 
   if (!payment.populated('subscription')) {
-    payment.populate('subscription').execPopulate()
+    void payment.populate('subscription').execPopulate()
   }
 
-  payment.items.forEach(async ({ subscription, qty }) => {
+  for (const { subscription, qty } of payment.items) {
     await SubscriptionService.changeBalance(
       subscription as SubscriptionDoc,
-      qty
+      qty,
     )
-  })
+  }
 
   PaymentCanceled.emit({ payment })
 

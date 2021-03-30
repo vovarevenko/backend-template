@@ -43,7 +43,7 @@ export async function create(data: SubscriptionCreateData) {
 
 export async function changeBalance(
   subscription: SubscriptionDoc,
-  change: number
+  change: number,
 ) {
   if (subscription.balance + change >= 0) {
     subscription.balance += change

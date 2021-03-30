@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import { isDocument } from '@typegoose/typegoose'
-import * as createHttpError from 'http-errors'
+import createHttpError from 'http-errors'
 import {
   Body,
   Controller,
@@ -13,8 +13,8 @@ import {
 } from 'koa-ts-controllers'
 import {
   OfficeModel,
-  PaymentDoc,
   PaymentModel,
+  SubscriptionDoc,
   SubscriptionModel,
   UserDoc,
 } from '../../app/models'
@@ -29,13 +29,13 @@ export default class PaymentController {
   async list(
     @Query('user') user?: string,
     @Query('shop') shop?: string,
-    @Query('office') office?: string
+    @Query('office') office?: string,
   ) {
     const query = getPaymentQuery().sort({ createdAt: -1 })
 
-    if (user) query.where({ user })
-    if (shop) query.where({ shop })
-    if (office) query.where({ office })
+    if (user) void query.where({ user })
+    if (shop) void query.where({ shop })
+    if (office) void query.where({ office })
 
     return (await query.exec()).map(paymentOutput)
   }
@@ -44,12 +44,19 @@ export default class PaymentController {
   @Flow([auth])
   async create(
     @Body({ required: true }) data: PaymentCreateInput,
-    @CurrentUser() user: UserDoc
+    @CurrentUser() user: UserDoc,
   ) {
     const office = await OfficeModel.findById(data.office).populate('shop')
-    if (!office) createHttpError(404)
+    if (!office) throw createHttpError(404)
 
-    const createData = { user, office, items: [] }
+    const createData = {
+      user,
+      office,
+      items: [] as Array<{
+        subscription: SubscriptionDoc
+        qty: number
+      }>,
+    }
 
     const subscriptionIds = data.items.map(el => el.subscription)
     const subscriptions = await SubscriptionModel.find({
@@ -60,17 +67,20 @@ export default class PaymentController {
       .populate('product')
       .populate('offer')
 
-    if (subscriptions.length !== subscriptionIds.length)
+    if (subscriptions.length !== subscriptionIds.length) {
       throw createHttpError(404)
+    }
 
     const now = new Date()
 
     for (const item of data.items) {
       const subscription = subscriptions.find(
-        el => el['_id'].toString() === item.subscription
+        el => el['_id'].toString() === item.subscription,
       )
 
       if (
+        !isDocument(subscription) ||
+        !isDocument(subscription?.user) ||
         subscription.user['_id'].toString() !== user['_id'].toString() ||
         // subscription.balance < item.qty ||
         subscription.expiresAt < now
@@ -80,8 +90,8 @@ export default class PaymentController {
 
       createData.items.push({
         subscription: subscriptions.find(
-          el => el['_id'].toString() === item.subscription
-        ),
+          el => el['_id'].toString() === item.subscription,
+        ) as SubscriptionDoc,
         qty: 1,
       })
     }
@@ -102,6 +112,7 @@ export default class PaymentController {
 
     if (
       !isDocument(payment.shop) ||
+      !isDocument(payment.shop.user) ||
       payment.shop.user['_id'].toString() !== user['_id'].toString()
     ) {
       throw createHttpError(403)
@@ -114,7 +125,7 @@ export default class PaymentController {
 }
 
 async function getPaymentByIdOrDie(id: string) {
-  const payment = getPaymentQuery()
+  const payment = await getPaymentQuery()
     .where('_id', mongoose.Types.ObjectId(id))
     .findOne()
     .exec()

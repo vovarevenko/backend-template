@@ -10,17 +10,18 @@ export function offerOutput(offer: OfferDoc) {
     id: offer._id.toString(),
     shop: isDocument(offer.shop)
       ? shopOutput(offer.shop)
-      : offer.shop['_id'].toString(),
+      : offer.shop?.toString(),
     product: isDocument(offer.product)
       ? productOutput(offer.product)
-      : offer.product['_id'].toString(),
+      : offer.product?.toString(),
     price: offer.price,
     oldPrice: offer.oldPrice,
     qty: offer.qty,
     validity: offer.validity,
-    cities: offer.cities.map(cityOutput),
-    offices: offer.offices.map(item =>
-      isDocument(item) ? officeOutput(item) : item['_id'].toString()
-    ),
+    cities: offer.cities?.map(cityOutput) ?? [],
+    offices:
+      offer.offices?.map(item =>
+        isDocument(item) ? officeOutput(item) : item?.toString(),
+      ) ?? [],
   }
 }

@@ -11,7 +11,7 @@ export async function currentUser(ctx: Context, next: Next) {
     const token = authorization.split(' ')[1]
 
     try {
-      const { _id } = await jwtVerify(token)
+      const { _id } = jwtVerify(token)
       const user = await UserModel.findById(_id)
       ctx.state.user = user
     } catch (e) {}

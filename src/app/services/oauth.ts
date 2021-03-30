@@ -9,7 +9,7 @@ import { UserService } from '.'
 export async function loginWithGoogle(
   token: string,
   city: CityDoc,
-  user?: UserDoc
+  user?: UserDoc,
 ) {
   const { name, email: googleId } = await googleGetTokenInfo(token)
 
@@ -23,7 +23,7 @@ export async function loginWithGoogle(
     return user
   }
 
-  user = await UserModel.findOne({ googleId })
+  user = (await UserModel.findOne({ googleId })) ?? undefined
 
   if (!user) {
     user = await UserService.create({ city, name, googleId })
@@ -42,7 +42,7 @@ export async function loginWithGoogle(
 export async function loginWithTelegram(
   data: TelegramLoginData,
   city: CityDoc,
-  user?: UserDoc
+  user?: UserDoc,
 ) {
   if (!telegramCheckAuth(data)) {
     throw new Error()
@@ -57,7 +57,7 @@ export async function loginWithTelegram(
     return user
   }
 
-  user = await UserModel.findOne({ telegramId })
+  user = (await UserModel.findOne({ telegramId })) ?? undefined
 
   if (!user) {
     user = await UserService.create({ city, name, telegramId })

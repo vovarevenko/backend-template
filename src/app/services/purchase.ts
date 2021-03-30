@@ -26,7 +26,7 @@ export async function create(data: PurchaseCreateData) {
     data.items.map(async ({ offer, office, qty }) => {
       const subscription = await SubscriptionService.create({ user, offer })
       return prettifyPurchaseItem({ offer, subscription, office, qty })
-    })
+    }),
   )
 
   const purchase = await PurchaseModel.create({ user, items })

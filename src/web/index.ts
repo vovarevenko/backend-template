@@ -1,8 +1,8 @@
-import * as http from 'http'
-import * as Koa from 'koa'
-import * as Router from 'koa-router'
-import * as bodyParser from 'koa-bodyparser'
-import * as cors from '@koa/cors'
+import http from 'http'
+import Koa from 'koa'
+import Router from 'koa-router'
+import bodyParser from 'koa-bodyparser'
+import cors from '@koa/cors'
 import { bootstrapControllers } from 'koa-ts-controllers'
 // import { isHttpError } from 'http-errors'
 import { currentUser } from './middlewares/current-user'
@@ -12,7 +12,7 @@ export const httpServer = http.createServer(webApp.callback())
 
 const router = new Router()
 
-bootstrapControllers(webApp, {
+void bootstrapControllers(webApp, {
   router,
   basePath: '/',
   controllers: [`${__dirname}/controllers/*`],

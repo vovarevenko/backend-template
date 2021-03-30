@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   DocumentType,
   getModelForClass,
@@ -11,21 +12,24 @@ import { CityField } from './fields'
   {
     unique: true,
     partialFilterExpression: { googleId: { $exists: true } },
-  }
+  },
 )
 @index(
   { telegramId: 1 },
   {
     unique: true,
     partialFilterExpression: { telegramId: { $exists: true } },
-  }
+  },
 )
 export class User {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, unique: true })
-  token: string
+  token!: string
 
   @prop({ required: true })
-  city: CityField
+  city!: CityField
 
   @prop()
   name?: string

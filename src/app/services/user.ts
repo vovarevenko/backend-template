@@ -11,7 +11,7 @@ interface UserCreateData {
 export async function create(data: UserCreateData) {
   const user = new UserModel()
 
-  user.token = await jwtSign({ _id: user._id })
+  user.token = jwtSign({ _id: user._id })
   user.city = {
     _id: data.city._id,
     name: data.city.name,

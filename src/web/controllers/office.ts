@@ -1,5 +1,5 @@
-import * as mongoose from 'mongoose'
-import * as createHttpError from 'http-errors'
+import mongoose from 'mongoose'
+import createHttpError from 'http-errors'
 import { Controller, Get, Params, Query } from 'koa-ts-controllers'
 import { OfficeDoc, OfficeModel, UserOfficeModel } from '../../app/models'
 import { officeOutput } from '../outputs/office'
@@ -10,7 +10,7 @@ export default class OfficeController {
   async list(
     @Query('shop') shop?: string,
     @Query('city') city?: string,
-    @Query('user') user?: string // for sort by usage
+    @Query('user') user?: string, // for sort by usage
   ) {
     const filters = {}
     if (shop) filters['shop'] = mongoose.Types.ObjectId(shop)

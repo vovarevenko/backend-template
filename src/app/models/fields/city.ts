@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import { modelOptions, prop } from '@typegoose/typegoose'
 
 @modelOptions({ schemaOptions: { _id: false } })

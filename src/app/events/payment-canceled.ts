@@ -12,5 +12,5 @@ export interface PaymentCanceledInterface extends Event {
 }
 
 export const PaymentCanceled = new Event(
-  'PAYMENT_CANCELED'
+  'PAYMENT_CANCELED',
 ) as PaymentCanceledInterface

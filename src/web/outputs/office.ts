@@ -8,9 +8,9 @@ export function officeOutput(office: OfficeDoc) {
     id: office._id.toString(),
     shop: isDocument(office.shop)
       ? shopOutput(office.shop)
-      : office.shop['_id'].toString(),
+      : office.shop?.toString(),
     city: cityOutput(office.city),
     address: office.address,
-    lastTouch: office['lastTouch'],
+    lastTouch: office.lastTouch,
   }
 }

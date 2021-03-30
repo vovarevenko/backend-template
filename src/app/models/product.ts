@@ -1,12 +1,16 @@
+import mongoose from 'mongoose'
 import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { Shop } from './shop'
 
 export class Product {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, index: true, ref: Shop })
   shop: Ref<Shop>
 
   @prop({ required: true })
-  name: string
+  name!: string
 
   @prop()
   weight?: number

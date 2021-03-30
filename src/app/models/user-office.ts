@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   DocumentType,
   getModelForClass,
@@ -10,11 +11,14 @@ import { User } from './user'
 
 @index({ user: 1, office: 1 }, { unique: true })
 export class UserOffice {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, ref: User })
-  user: Ref<User>
+  user!: Ref<User>
 
   @prop({ required: true, ref: Office })
-  office: Ref<Office>
+  office!: Ref<Office>
 
   @prop()
   createdAt?: Date

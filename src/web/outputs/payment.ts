@@ -13,24 +13,24 @@ export function paymentOutput(payment: PaymentDoc) {
     id: payment._id.toString(),
     user: isDocument(payment.user)
       ? userOutput(payment.user)
-      : payment.user['_id'].toString(),
+      : payment.user?.toString(),
     shop: isDocument(payment.shop)
       ? shopOutput(payment.shop)
-      : payment.shop['_id'].toString(),
+      : payment.shop?.toString(),
     city: cityOutput(payment.city),
     office: isDocument(payment.office)
       ? officeOutput(payment.office)
-      : payment.office['_id'].toString(),
+      : payment.office?.toString(),
     items: payment.items.map(item => ({
       product: isDocument(item.product)
         ? productOutput(item.product)
-        : item.product['_id'].toString(),
+        : item.product?.toString(),
       offer: isDocument(item.offer)
         ? offerOutput(item.offer)
-        : item.offer['_id'].toString(),
+        : item.offer?.toString(),
       subscription: isDocument(item.subscription)
         ? subscriptionOutput(item.subscription)
-        : item.subscription['_id'].toString(),
+        : item.subscription?.toString(),
       qty: item.qty,
     })),
     code: payment.code,

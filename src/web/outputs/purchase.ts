@@ -13,26 +13,24 @@ export function purchaseOutput(purchase: PurchaseDoc) {
     id: purchase._id.toString(),
     user: isDocument(purchase.user)
       ? userOutput(purchase.user)
-      : purchase.user['_id'].toString(),
+      : purchase.user?.toString(),
     items: purchase.items.map(item => ({
       shop: isDocument(item.shop)
         ? shopOutput(item.shop)
-        : item.shop['_id'].toString(),
+        : item.shop?.toString(),
       product: isDocument(item.product)
         ? productOutput(item.product)
-        : item.product['_id'].toString(),
+        : item.product?.toString(),
       offer: isDocument(item.offer)
         ? offerOutput(item.offer)
-        : item.offer['_id'].toString(),
+        : item.offer?.toString(),
       subscription: isDocument(item.subscription)
         ? subscriptionOutput(item.subscription)
-        : item.subscription['_id'].toString(),
+        : item.subscription?.toString(),
       city: item.city ? cityOutput(item.city) : undefined,
-      office: item.office
-        ? isDocument(item.office)
-          ? officeOutput(item.office)
-          : item.office['_id'].toString()
-        : undefined,
+      office: isDocument(item.office)
+        ? officeOutput(item.office)
+        : item.office?.toString(),
       qty: item.qty,
     })),
     createdAt: purchase.createdAt,

@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { CityField, MoneyField } from './fields'
 import { Office } from './office'
@@ -5,23 +6,26 @@ import { Product } from './product'
 import { Shop } from './shop'
 
 export class Offer {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, index: true, ref: Shop })
-  shop: Ref<Shop>
+  shop!: Ref<Shop>
 
   @prop({ required: true, index: true, ref: Product })
-  product: Ref<Product>
+  product!: Ref<Product>
 
   @prop({ required: true })
-  price: MoneyField
+  price!: MoneyField
 
   @prop({ required: true })
-  oldPrice: MoneyField
+  oldPrice!: MoneyField
 
   @prop({ required: true, min: 1 })
-  qty: number
+  qty!: number
 
   @prop({ required: true, min: 1 })
-  validity: number // days
+  validity!: number // days
 
   @prop({ type: CityField })
   cities?: CityField[]

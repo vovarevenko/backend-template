@@ -1,5 +1,5 @@
-import * as mongoose from 'mongoose'
-import * as createHttpError from 'http-errors'
+import mongoose from 'mongoose'
+import createHttpError from 'http-errors'
 import { Body, Controller, CurrentUser, Flow, Post } from 'koa-ts-controllers'
 import { OfferModel, OfficeModel, UserDoc } from '../../app/models'
 import { PurchaseService } from '../../app/services'
@@ -13,7 +13,7 @@ export default class PurchaseController {
   @Flow([auth])
   async create(
     @Body({ required: true }) data: PurchaseCreateInput,
-    @CurrentUser() user: UserDoc
+    @CurrentUser() user: UserDoc,
   ) {
     const createData = { user, items: [] }
 

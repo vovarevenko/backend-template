@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { jwt as cfg } from '../../config'
 
 interface JwtPayload {

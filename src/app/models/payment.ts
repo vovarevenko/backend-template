@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   DocumentType,
   getModelForClass,
@@ -16,36 +17,39 @@ import { User } from './user'
 @modelOptions({ schemaOptions: { _id: false } })
 export class PaymentItem {
   @prop({ required: true, index: true, ref: Product })
-  product: Ref<Product>
+  product!: Ref<Product>
 
   @prop({ required: true, index: true, ref: Offer })
-  offer: Ref<Offer>
+  offer!: Ref<Offer>
 
   @prop({ required: true, index: true, ref: Subscription })
-  subscription: Ref<Subscription>
+  subscription!: Ref<Subscription>
 
   @prop({ required: true, min: 1 })
-  qty: number
+  qty!: number
 }
 
 export class Payment {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, index: true, ref: User })
-  user: Ref<User>
+  user!: Ref<User>
 
   @prop({ required: true, index: true, ref: Shop })
-  shop: Ref<Shop>
+  shop!: Ref<Shop>
 
   @prop({ required: true })
-  city: CityField
+  city!: CityField
 
   @prop({ required: true, index: true, ref: Office })
   office: Ref<Office>
 
   @prop({ required: true, type: PaymentItem })
-  items: PaymentItem[]
+  items!: PaymentItem[]
 
   @prop({ required: true })
-  code: string
+  code!: string
 
   @prop()
   createdAt?: Date

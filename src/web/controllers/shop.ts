@@ -1,5 +1,5 @@
-import * as mongoose from 'mongoose'
-import * as createHttpError from 'http-errors'
+import mongoose from 'mongoose'
+import createHttpError from 'http-errors'
 import { Controller, Get, Params, Query } from 'koa-ts-controllers'
 import { ShopModel } from '../../app/models'
 import { shopOutput } from '../outputs/shop'
@@ -10,7 +10,7 @@ export default class ShopController {
   async list(@Query('city') city?: string) {
     const query = ShopModel.find().sort({ _id: 1 })
 
-    if (city) query.where({ 'cities._id': mongoose.Types.ObjectId(city) })
+    if (city) void query.where({ 'cities._id': mongoose.Types.ObjectId(city) })
 
     return (await query.exec()).map(shopOutput)
   }

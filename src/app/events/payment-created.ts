@@ -12,5 +12,5 @@ export interface PaymentCreatedInterface extends Event {
 }
 
 export const PaymentCreated = new Event(
-  'PAYMENT_CREATED'
+  'PAYMENT_CREATED',
 ) as PaymentCreatedInterface

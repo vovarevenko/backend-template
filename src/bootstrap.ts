@@ -5,11 +5,11 @@ import { isDev, eventListeners, mongo as mongoConfig } from './config'
 
 import { readdirSync } from 'fs'
 
-import * as mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import { CityModel } from './app/models'
 import { FakeDataService } from './app/services'
 
-bootstrap()
+void bootstrap()
 
 async function bootstrap() {
   /**
@@ -27,7 +27,7 @@ async function bootstrap() {
   /**
    * Require event listeners
    */
-  requireListeners()
+  requireListeners(eventListeners)
 }
 
 async function dbConnect() {
@@ -50,8 +50,8 @@ async function createFakeData() {
   }
 }
 
-function requireListeners() {
-  eventListeners.forEach(path => {
+function requireListeners(paths: string[]) {
+  paths.forEach(path => {
     readdirSync(path).forEach(file => {
       require(`${path}/${file}`)
     })

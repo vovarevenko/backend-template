@@ -10,16 +10,16 @@ export function subscriptionOutput(subscription: SubscriptionDoc) {
     id: subscription._id.toString(),
     user: isDocument(subscription.user)
       ? userOutput(subscription.user)
-      : subscription.user['_id'].toString(),
+      : subscription.user?.toString(),
     shop: isDocument(subscription.shop)
       ? shopOutput(subscription.shop)
-      : subscription.shop['_id'].toString(),
+      : subscription.shop?.toString(),
     product: isDocument(subscription.product)
       ? productOutput(subscription.product)
-      : subscription.product['_id'].toString(),
+      : subscription.product?.toString(),
     offer: isDocument(subscription.offer)
       ? offerOutput(subscription.offer)
-      : subscription.offer['_id'].toString(),
+      : subscription.offer?.toString(),
     price: subscription.price,
     qty: subscription.qty,
     validity: subscription.validity,

@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   DocumentType,
   getModelForClass,
@@ -16,16 +17,16 @@ import { User } from './user'
 @modelOptions({ schemaOptions: { _id: false } })
 export class PurchaseItem {
   @prop({ required: true, index: true, ref: Shop })
-  shop: Ref<Shop>
+  shop!: Ref<Shop>
 
   @prop({ required: true, index: true, ref: Product })
-  product: Ref<Product>
+  product!: Ref<Product>
 
   @prop({ required: true, index: true, ref: Offer })
-  offer: Ref<Offer>
+  offer!: Ref<Offer>
 
   @prop({ required: true, index: true, ref: Subscription })
-  subscription: Ref<Subscription>
+  subscription!: Ref<Subscription>
 
   @prop({ type: CityField })
   city?: CityField
@@ -34,15 +35,18 @@ export class PurchaseItem {
   office?: Ref<Office>
 
   @prop({ required: true, min: 1 })
-  qty: number
+  qty!: number
 }
 
 export class Purchase {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, index: true, ref: User })
-  user: Ref<User>
+  user!: Ref<User>
 
   @prop({ required: true, type: PurchaseItem })
-  items: PurchaseItem[]
+  items!: PurchaseItem[]
 
   @prop()
   createdAt?: Date

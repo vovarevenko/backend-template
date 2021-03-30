@@ -1,13 +1,17 @@
+import mongoose from 'mongoose'
 import { DocumentType, getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { CityField } from './fields'
 import { User } from './user'
 
 export class Shop {
+  @prop()
+  _id!: mongoose.Types.ObjectId
+
   @prop({ required: true, index: true, ref: User })
-  user: Ref<User>
+  user!: Ref<User>
 
   @prop({ required: true })
-  name: string
+  name!: string
 
   @prop()
   cover?: string
