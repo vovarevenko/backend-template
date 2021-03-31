@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors'
 import { Controller, Get } from 'koa-ts-controllers'
 import { CityModel } from '../../app/models'
 import { cityOutput } from '../outputs/city'
@@ -13,6 +14,9 @@ export default class CityController {
   @Get('/current')
   async current() {
     const city = await CityModel.findOne().sort({ _id: 1 })
+
+    if (!city) throw createHttpError(404)
+
     return cityOutput(city)
   }
 }
